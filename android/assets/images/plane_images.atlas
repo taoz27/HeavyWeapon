@@ -1,0 +1,69 @@
+
+plane_images.png
+size: 1024,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bigbomber
+  rotate: false
+  xy: 303, 71
+  size: 160, 50
+  orig: 160, 50
+  offset: 0, 0
+  index: -1
+blimp
+  rotate: false
+  xy: 1, 39
+  size: 300, 82
+  orig: 300, 82
+  offset: 0, 0
+  index: -1
+bomber
+  rotate: false
+  xy: 465, 77
+  size: 120, 44
+  orig: 120, 44
+  offset: 0, 0
+  index: -1
+deflector
+  rotate: false
+  xy: 113, 4
+  size: 100, 33
+  orig: 100, 33
+  offset: 0, 0
+  index: -1
+deltabomber
+  rotate: false
+  xy: 1, 1
+  size: 110, 36
+  orig: 110, 36
+  offset: 0, 0
+  index: -1
+deltajet
+  rotate: false
+  xy: 709, 87
+  size: 100, 34
+  orig: 100, 34
+  offset: 0, 0
+  index: -1
+jetfighter
+  rotate: false
+  xy: 811, 93
+  size: 80, 28
+  orig: 80, 28
+  offset: 0, 0
+  index: -1
+pupcopter
+  rotate: false
+  xy: 587, 77
+  size: 120, 44
+  orig: 120, 44
+  offset: 0, 0
+  index: -1
+smalljet
+  rotate: false
+  xy: 303, 39
+  size: 80, 30
+  orig: 80, 30
+  offset: 0, 0
+  index: -1
