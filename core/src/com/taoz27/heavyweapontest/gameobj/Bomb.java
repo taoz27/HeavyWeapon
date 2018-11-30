@@ -1,40 +1,46 @@
-package com.taoz27.heavyweapontest;
+package com.taoz27.heavyweapontest.gameobj;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.taoz27.heavyweapontest.Assets;
+import com.taoz27.heavyweapontest.Config;
 
 public class Bomb extends AbsGameObj {
-    Array<TextureAtlas.AtlasRegion> bodyImgs;
+    Array<TextureAtlas.AtlasRegion> bodyImgs,bodyImgsFlip;
     int curItem=0;
 
     float speed;
+    boolean direction;
 
-    SmallJet parent;
+    Plane parent;
     
-    public Bomb(SmallJet parent,float x,float y){
+    public Bomb(Plane parent, float x, float y,boolean direction,float speed){
         super();
         this.parent=parent;
+        this.direction=direction;
         
-        bodyImgs=Assets.getInstance().bombImgs;
+        bodyImgs= Assets.getInstance().bombImgs;
+        bodyImgsFlip=new Array<TextureAtlas.AtlasRegion>();
+        for(int i=0;i<bodyImgs.size;i++){
+            TextureAtlas.AtlasRegion temp=new TextureAtlas.AtlasRegion(bodyImgs.get(i));
+            temp.flip(true,false);
+            bodyImgsFlip.add(temp);
+        }
         getInfoByAtlas(bodyImgs.get(0));
         body.x=x-body.width/2;body.y=y-body.height;//因为炸弹要在飞机正下方紧挨着，但是smallJet中获取不到炸弹的height，所这里不除以2
 
-        health=Config.getBombHealth();
+        health= Config.getBombHealth();
 
-        speed=Config.getBombSpeed();
-        velocity.set(speed,0);
+        this.speed=speed;
+        velocity.set(direction?speed:-speed,0);
     }
 
     @Override
     public void update() {
         super.update();
-        if (body.y<Config.getGroundHeight()){
-            dead=true;
-        }else{
-            hitTarget();
-        }
+        hitTarget();
     }
 
     void hitTarget(){
@@ -54,12 +60,16 @@ public class Bomb extends AbsGameObj {
     @Override
     public void render(SpriteBatch batch) {
         float angle=velocity.angle();
-        if (MathUtils.isEqual(angle,0,3))angle=360;
-        angle=360-angle;
+        if (direction) {
+            if (MathUtils.isEqual(angle, 0, 3)) angle = 360;
+            angle = 360 - angle;
+        }else {
+            angle=angle-180;
+        }
         if(MathUtils.isEqual(angle,90,5))
             curItem=bodyImgs.size-1;
         curItem=(int)(angle*10/90);
 
-        batch.draw(bodyImgs.get(curItem),body.x,body.y,body.width,body.height);
+        batch.draw(direction?bodyImgs.get(curItem):bodyImgsFlip.get(curItem),body.x,body.y,body.width,body.height);
     }
 }

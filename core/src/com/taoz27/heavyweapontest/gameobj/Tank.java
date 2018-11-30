@@ -1,8 +1,10 @@
-package com.taoz27.heavyweapontest;
+package com.taoz27.heavyweapontest.gameobj;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
+import com.taoz27.heavyweapontest.Assets;
+import com.taoz27.heavyweapontest.Config;
 
 import java.util.Iterator;
 
@@ -11,7 +13,7 @@ public class Tank extends AbsGameObj {
     int curAtlasItem=0;
     
     float speed;
-    int framesPerBullet=12;
+    int framesPerBullet=10;
     int curFrames=0;
 
     Enemies target;
@@ -19,7 +21,7 @@ public class Tank extends AbsGameObj {
 
     public Tank(){
         super();
-        bodyImgs=Assets.getInstance().tankImgs;
+        bodyImgs= Assets.getInstance().tankImgs;
         getInfoByAtlas(bodyImgs.get(0));
         body.x=(Config.getScreenWidth()-body.width)/2;body.y=Config.getGroundHeight();
         speed=Config.getTankSpeed();
@@ -55,9 +57,9 @@ public class Tank extends AbsGameObj {
     private void emitBullet() {
         Bullet b0=new Bullet(this,body.x+body.width/2,body.y+body.height,90f);
         bullets.add(b0);
-        Bullet b1=new Bullet(this,body.x+body.width/2,body.y+body.height,80f);
+        Bullet b1=new Bullet(this,body.x+body.width/2+10,body.y+body.height,75f);
         bullets.add(b1);
-        Bullet b2=new Bullet(this,body.x+body.width/2,body.y+body.height,100f);
+        Bullet b2=new Bullet(this,body.x+body.width/2-10,body.y+body.height,105f);
         bullets.add(b2);
     }
 

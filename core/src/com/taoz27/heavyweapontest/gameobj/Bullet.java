@@ -1,11 +1,13 @@
-package com.taoz27.heavyweapontest;
+package com.taoz27.heavyweapontest.gameobj;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.taoz27.heavyweapontest.Assets;
+import com.taoz27.heavyweapontest.Config;
 
-public class Bullet extends AbsGameObj{
+public class Bullet extends AbsGameObj {
     Tank parent;
     
     Array<TextureAtlas.AtlasRegion> bodyImgs;
@@ -17,11 +19,11 @@ public class Bullet extends AbsGameObj{
         super();
         this.parent=parent;
         
-        bodyImgs=Assets.getInstance().bulletImgs;
+        bodyImgs= Assets.getInstance().bulletImgs;
         getInfoByAtlas(bodyImgs.get(0));
         body.x=x-body.width/2;body.y=y-body.height/2;
 
-        health=Config.getBulletHealth();
+        health= Config.getBulletHealth();
 
         speed=Config.getBulletSpeed();
         velocity.x=speed* MathUtils.cosDeg(angle);velocity.y=speed*MathUtils.sinDeg(angle);
@@ -30,15 +32,20 @@ public class Bullet extends AbsGameObj{
     @Override
     public void update() {
         super.update();
-        if (body.y<Config.getGroundHeight()){
-            dead=true;
-        }else {
-            hitTarget();
-        }
+        hitTarget();
     }
 
     void hitTarget(){
         if (dead)return;
+        for(int i=0;i<parent.target.bombs.size;i++){
+            AbsGameObj obj=parent.target.bombs.get(i);
+            if (body.overlaps(obj.body)){
+                if(obj.onHit(Config.getBulletDamage())) {
+                    dead = true;
+                    return;
+                }
+            }
+        }
         if (body.y+body.height<Config.getPlaneLowestHeight())return;
         for(int i=0;i<parent.target.planes.size;i++){
             AbsGameObj obj=parent.target.planes.get(i);
@@ -53,7 +60,7 @@ public class Bullet extends AbsGameObj{
 
     @Override
     void updateVelocity() {
-        velocity.y-=Config.getGravity();
+        velocity.y-=Config.getGravity()*0.1f;
     }
 
     @Override
@@ -71,7 +78,5 @@ public class Bullet extends AbsGameObj{
         }
 
         batch.draw(bodyImgs.get(curItem),body.x,body.y,body.width,body.height);
-//        curItem--;
-//        curItem = curItem < 0 ? 104 : curItem;
     }
 }

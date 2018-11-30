@@ -1,4 +1,4 @@
-package com.taoz27.heavyweapontest;
+package com.taoz27.heavyweapontest.gameobj;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import java.util.Iterator;
 
 public class Enemies extends AbsGameObj {
-    Array<SmallJet> planes;
+    Array<Plane> planes;
     Array<Bomb> bombs;
     Tank target;
 
@@ -15,7 +15,7 @@ public class Enemies extends AbsGameObj {
 
     public Enemies(){
         super();
-        planes=new Array<SmallJet>();
+        planes=new Array<Plane>();
         bombs=new Array<Bomb>();
     }
 
@@ -25,8 +25,8 @@ public class Enemies extends AbsGameObj {
 
     @Override
     public void update() {
-        for(Iterator<SmallJet> iter=planes.iterator();iter.hasNext();){
-            SmallJet jet=iter.next();
+        for(Iterator<Plane> iter = planes.iterator(); iter.hasNext();){
+            Plane jet=iter.next();
             if(jet.dead){
                 iter.remove();
                 continue;
@@ -49,8 +49,14 @@ public class Enemies extends AbsGameObj {
     }
 
     private void emitPlane() {
-        SmallJet jet=new SmallJet(this,target);
+        Plane jet=Plane.crtSmallJet(this,target);
         planes.add(jet);
+        Plane jet1=Plane.crtBlimp(this,target);
+        planes.add(jet1);
+        Plane jet2=Plane.crtBomber(this,target);
+        planes.add(jet2);
+        Plane jet3=Plane.crtDeltaBomber(this,target);
+        planes.add(jet3);
     }
 
     @Override

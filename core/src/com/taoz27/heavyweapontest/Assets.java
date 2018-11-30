@@ -8,10 +8,10 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class Assets implements Disposable {
     private static final Assets instance=new Assets();
-    
+
     TextureAtlas tankAtlas,planeAtlas,bulletAtlas,bombAtlas;
     public Array<TextureAtlas.AtlasRegion> tankImgs;
-    public TextureAtlas.AtlasRegion smallJetImg;
+    public Array<TextureAtlas.AtlasRegion> planeImgs;
     public Array<TextureAtlas.AtlasRegion> bulletImgs;
     public Array<TextureAtlas.AtlasRegion> bombImgs;
 
@@ -27,7 +27,7 @@ public class Assets implements Disposable {
         tankAtlas = new TextureAtlas(Gdx.files.internal("images/tank_images.atlas"));
         tankImgs=tankAtlas.getRegions();
         planeAtlas = new TextureAtlas(Gdx.files.internal("images/plane_images.atlas"));
-        smallJetImg=planeAtlas.findRegion("smalljet");
+        planeImgs=planeAtlas.getRegions();
         bulletAtlas=new TextureAtlas(Gdx.files.internal("images/bullet_images.atlas"));
         bulletImgs=bulletAtlas.getRegions();
         bombAtlas=new TextureAtlas(Gdx.files.internal("images/bomb_images.atlas"));

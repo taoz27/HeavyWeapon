@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.taoz27.heavyweapontest.gameobj.Enemies;
+import com.taoz27.heavyweapontest.gameobj.Tank;
 
 public class MainGame extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -50,14 +52,14 @@ public class MainGame extends ApplicationAdapter {
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
 			if (isClickLeft()&&isClickRight())tank.velocity.x=0;
-			else if (isClickLeft())tank.velocity.x=-tank.speed;
-			else if (isClickRight())tank.velocity.x=tank.speed;
+			else if (isClickLeft())tank.velocity.x=-Config.getTankSpeed();
+			else if (isClickRight())tank.velocity.x=Config.getTankSpeed();
 			else tank.velocity.x=0;
 		}else {
 			if (Gdx.app.getType() != Application.ApplicationType.Desktop) return;
 			if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.RIGHT)) tank.velocity.x = 0;
-			else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) tank.velocity.x = -tank.speed;
-			else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) tank.velocity.x = tank.speed;
+			else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) tank.velocity.x = -Config.getTankSpeed();
+			else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) tank.velocity.x = Config.getTankSpeed();
 			else tank.velocity.x = 0;
 		}
 	}
