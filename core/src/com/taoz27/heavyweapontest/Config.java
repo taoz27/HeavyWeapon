@@ -4,13 +4,12 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class Config {
     private static final int standScreenHeight =450;
-    private static final int standGroundHeight=30;
     private static final int standPlaneLowestHeight=standScreenHeight*5/9;
 
     private static int screenWidth=950, screenHeight=450;
     private static float screenRatio=1;
 
-    private static final float gravity=0.3f;
+    private static final float gravity=0.2f;
     private static final float standTankSpeed=6;
     private static final float standMinPlaneSpeed=2.5f;
     private static final float standMaxPlaneSpeed=7f;
@@ -35,6 +34,17 @@ public class Config {
     private static final int bulletHealth=10;
     private static final int bombHealth=10;
 
+
+
+    private static final float standBgSpeed=4;
+    private static final float standBgGroundHeight=0;
+    private static final float standBgGroundHeightScale=60f/60;
+    private static final float standBgMountainHeight=20;
+    private static final float standBgMountainHeightScale=300f/300;
+    private static final float standGroundHeight=60f/2;
+    private static final float standBgSkyHeight=90;
+    private static final float standBgSkyHeightScale=360f/480;
+
     public static void setScreenWidth(int screenWidth) {
         Config.screenWidth = screenWidth;
     }
@@ -55,8 +65,8 @@ public class Config {
         return screenRatio;
     }
 
-    public static int getGroundHeight() {
-        return (int)(standGroundHeight*screenRatio);
+    public static float getGroundHeight() {
+        return standGroundHeight*screenRatio;
     }
 
     public static float getGravity() {
@@ -138,6 +148,36 @@ public class Config {
     public static int getDeltaBomberBombSpeed() {
         return deltaBomberBombSpeed;
     }
+
+
+    public static float getBgSpeed() {
+        return standBgSpeed*screenRatio;
+    }
+
+    public static float getBgGroundHeight() {
+        return standBgGroundHeight*screenRatio;
+    }
+
+    public static float getBgGroundHeightScale() {
+        return standBgGroundHeightScale;
+    }
+
+    public static float getBgMountainHeight() {
+        return standBgMountainHeight*screenRatio;
+    }
+
+    public static float getBgMountainHeightScale() {
+        return standBgMountainHeightScale;
+    }
+
+    public static float getBgSkyHeight() {
+        return standBgSkyHeight*screenRatio;
+    }
+
+    public static float getBgSkyHeightScale() {
+        return standBgSkyHeightScale;
+    }
+
 
     public static void calScreenRatio(){
         screenRatio=screenHeight/ standScreenHeight;

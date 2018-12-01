@@ -33,7 +33,7 @@ public class Plane extends AbsGameObj {
         return new Plane(parent,tank,PlaneImage.bomber.getValue(),Config.getBomberHealth(),Config.getSmallJetHealth());
     }
     public static Plane crtDeltaBomber(Enemies parent, Tank tank){
-        return new Plane(parent,tank,PlaneImage.deltabomber.getValue(),Config.getDeltaBomberBombSpeed(),Config.getDeltaBomberHealth());
+        return new Plane(parent,tank,PlaneImage.deflector.getValue(),Config.getDeltaBomberBombSpeed(),Config.getDeltaBomberHealth());
     }
 
     private Plane(Enemies parent, Tank tank, int plane, int framesPerBomb, int health){
@@ -84,6 +84,7 @@ public class Plane extends AbsGameObj {
     }
 
     private void emitBomb() {
+        Assets.getInstance().bombfall.play();
         Bomb bomb=new Bomb(this,body.x+body.width/2,body.y,direction,speed);
         parent.bombs.add(bomb);
     }

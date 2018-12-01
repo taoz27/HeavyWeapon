@@ -55,6 +55,7 @@ public class Tank extends AbsGameObj {
     }
 
     private void emitBullet() {
+        Assets.getInstance().tankfire.play();
         Bullet b0=new Bullet(this,body.x+body.width/2,body.y+body.height,90f);
         bullets.add(b0);
         Bullet b1=new Bullet(this,body.x+body.width/2+10,body.y+body.height,75f);

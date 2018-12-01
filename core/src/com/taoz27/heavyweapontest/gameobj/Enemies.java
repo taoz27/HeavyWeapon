@@ -10,7 +10,7 @@ public class Enemies extends AbsGameObj {
     Array<Bomb> bombs;
     Tank target;
 
-    int framesPerPlane=60*1;
+    int framesPerPlane=60*3;
     int curFrame=0;
 
     public Enemies(){

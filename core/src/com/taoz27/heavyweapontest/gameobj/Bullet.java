@@ -51,6 +51,7 @@ public class Bullet extends AbsGameObj {
             AbsGameObj obj=parent.target.planes.get(i);
             if (body.overlaps(obj.body)){
                 if(obj.onHit(Config.getBulletDamage())) {
+                    Assets.getInstance().bullethit.play();
                     dead = true;
                     return;
                 }

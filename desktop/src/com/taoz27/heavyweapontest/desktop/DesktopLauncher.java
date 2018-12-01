@@ -11,11 +11,11 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		if (rebuildAtlas){
 			TexturePacker.Settings settings=new TexturePacker.Settings();
-			settings.maxWidth=1024;
+			settings.maxWidth=4096;
 			settings.maxHeight=1024;
 			settings.debug=drawDebugOutline;
 			settings.duplicatePadding=true;
-			TexturePacker.process(settings,"tank_raw_img","../assets/images","plane_images");
+			TexturePacker.process(settings,"tank_raw_img","../assets/images","bg1_images");
 		}
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width=950;

@@ -1,6 +1,8 @@
 package com.taoz27.heavyweapontest;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
@@ -15,7 +17,13 @@ public class Assets implements Disposable {
     public Array<TextureAtlas.AtlasRegion> bulletImgs;
     public Array<TextureAtlas.AtlasRegion> bombImgs;
 
+    TextureAtlas bg1Atlas;
+    public Array<TextureAtlas.AtlasRegion> bg1Imgs;
+
     public BitmapFont font;
+
+    public Sound prepare,bombfall,bullethit,tankfire;
+    public Music bgMusic;
 
     public static Assets getInstance() {
         if (instance!=null)
@@ -33,7 +41,18 @@ public class Assets implements Disposable {
         bombAtlas=new TextureAtlas(Gdx.files.internal("images/bomb_images.atlas"));
         bombImgs=bombAtlas.getRegions();
 
+        bg1Atlas=new TextureAtlas(Gdx.files.internal("images/bg1_images.atlas"));
+        bg1Imgs=bg1Atlas.getRegions();
+
         font=new BitmapFont();
+
+        prepare=Gdx.audio.newSound(Gdx.files.internal("sound/v_prepare.ogg"));
+        bombfall=Gdx.audio.newSound(Gdx.files.internal("sound/bombfall.ogg"));
+        bullethit=Gdx.audio.newSound(Gdx.files.internal("sound/bullethit.ogg"));
+        tankfire=Gdx.audio.newSound(Gdx.files.internal("sound/tankfire.ogg"));
+        bgMusic=Gdx.audio.newMusic(Gdx.files.internal("music/atomictank.mp3"));
+        bgMusic.setVolume(0.5f);
+        bgMusic.setLooping(true);
     }
 
     @Override
@@ -43,6 +62,15 @@ public class Assets implements Disposable {
         bulletAtlas.dispose();
         bombAtlas.dispose();
 
+        bg1Atlas.dispose();
+
         font.dispose();
+
+        prepare.dispose();
+        bombfall.dispose();
+        bullethit.dispose();
+        tankfire.dispose();
+        if (bgMusic.isPlaying())bgMusic.stop();
+        bgMusic.dispose();
     }
 }
