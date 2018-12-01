@@ -10,10 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import com.taoz27.heavyweapontest.gameobj.Backgrounds;
-import com.taoz27.heavyweapontest.gameobj.Enemies;
-import com.taoz27.heavyweapontest.gameobj.Bg;
-import com.taoz27.heavyweapontest.gameobj.Tank;
+import com.taoz27.heavyweapontest.gameobj.*;
 
 public class MainGame extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -89,18 +86,26 @@ public class MainGame extends ApplicationAdapter {
         bg.render(batch);
 		tank.render(batch);
 		enemies.render(batch);
+		Explosion.renderAll(batch);
+
 
 		int fps= Gdx.graphics.getFramesPerSecond();
 		BitmapFont fpsFont=Assets.getInstance().font;
 		if (fps>=45)fpsFont.setColor(0,1,0,1);
 		else if(fps>=30)fpsFont.setColor(1,1,0,1);
 		else fpsFont.setColor(1,0,0,1);
-		fpsFont.draw(batch,"FPS:"+fps,200,200);
+		fpsFont.draw(batch,"FPS:"+fps,0,445*Config.getScreenRatio());
+		fpsFont.draw(batch,"SCORE:"+Config.score,0,430*Config.getScreenRatio());
 
 		batch.end();
 
 	}
-	
+
+	@Override
+	public void resize(int width, int height) {
+		camera.setToOrtho(false,width,height);
+	}
+
 	@Override
 	public void dispose () {
 		batch.dispose();

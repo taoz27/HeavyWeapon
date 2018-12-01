@@ -20,6 +20,9 @@ public class Assets implements Disposable {
     TextureAtlas bg1Atlas;
     public Array<TextureAtlas.AtlasRegion> bg1Imgs;
 
+    TextureAtlas explosionAtlas;
+    public Array<TextureAtlas.AtlasRegion> explosionImgs;
+
     public BitmapFont font;
 
     public Sound prepare,bombfall,bullethit,tankfire;
@@ -44,6 +47,9 @@ public class Assets implements Disposable {
         bg1Atlas=new TextureAtlas(Gdx.files.internal("images/bg1_images.atlas"));
         bg1Imgs=bg1Atlas.getRegions();
 
+        explosionAtlas=new TextureAtlas(Gdx.files.internal("images/explosion_images.atlas"));
+        explosionImgs=explosionAtlas.getRegions();
+
         font=new BitmapFont();
 
         prepare=Gdx.audio.newSound(Gdx.files.internal("sound/v_prepare.ogg"));
@@ -63,6 +69,8 @@ public class Assets implements Disposable {
         bombAtlas.dispose();
 
         bg1Atlas.dispose();
+
+        explosionAtlas.dispose();
 
         font.dispose();
 

@@ -3,6 +3,8 @@ package com.taoz27.heavyweapontest;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Config {
+    public static int score=0;
+
     private static final int standScreenHeight =450;
     private static final int standPlaneLowestHeight=standScreenHeight*5/9;
 

@@ -2,8 +2,6 @@ package com.taoz27.heavyweapontest.gameobj;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.taoz27.heavyweapontest.Assets;
-import com.taoz27.heavyweapontest.Config;
 
 public class Backgrounds extends AbsGameObj {
     int stage;

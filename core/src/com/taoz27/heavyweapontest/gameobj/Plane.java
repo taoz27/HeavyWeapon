@@ -30,10 +30,10 @@ public class Plane extends AbsGameObj {
         return new Plane(parent,tank,PlaneImage.blimp.getValue(),Config.getBlimpBombSpeed(),Config.getBlimpHealth(),5,1);
     }
     public static Plane crtBomber(Enemies parent, Tank tank){
-        return new Plane(parent,tank,PlaneImage.bomber.getValue(),Config.getBomberHealth(),Config.getSmallJetHealth());
+        return new Plane(parent,tank,PlaneImage.bomber.getValue(),Config.getBomberHealth(),Config.getSmallJetHealth(),3,1);
     }
     public static Plane crtDeltaBomber(Enemies parent, Tank tank){
-        return new Plane(parent,tank,PlaneImage.deflector.getValue(),Config.getDeltaBomberBombSpeed(),Config.getDeltaBomberHealth());
+        return new Plane(parent,tank,PlaneImage.deltabomber.getValue(),Config.getDeltaBomberBombSpeed(),Config.getDeltaBomberHealth());
     }
 
     private Plane(Enemies parent, Tank tank, int plane, int framesPerBomb, int health){
@@ -81,6 +81,16 @@ public class Plane extends AbsGameObj {
         curFrames++;
         curFrames=curFrames%framesPerBomb;
         if (curFrames==0)curBombs=0;
+    }
+
+    @Override
+    boolean onHit(int damage) {
+        boolean res=super.onHit(damage);
+        if (dead){
+            new Explosion(body);
+            Config.score+=MathUtils.random(10000,20000);
+        }
+        return res;
     }
 
     private void emitBomb() {

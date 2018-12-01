@@ -1,0 +1,146 @@
+
+explosion_images.png
+size: 3200, 160
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+explosion
+  rotate: false
+  xy: 1, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 1
+explosion
+  rotate: false
+  xy: 161, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 2
+explosion
+  rotate: false
+  xy: 321, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 3
+explosion
+  rotate: false
+  xy: 481, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 4
+explosion
+  rotate: false
+  xy: 641, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 5
+explosion
+  rotate: false
+  xy: 801, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 6
+explosion
+  rotate: false
+  xy: 961, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 7
+explosion
+  rotate: false
+  xy: 1121, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 8
+explosion
+  rotate: false
+  xy: 1281, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 9
+explosion
+  rotate: false
+  xy: 1441, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 10
+explosion
+  rotate: false
+  xy: 1601, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 11
+explosion
+  rotate: false
+  xy: 1761, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 12
+explosion
+  rotate: false
+  xy: 1921, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 13
+explosion
+  rotate: false
+  xy: 2081, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 14
+explosion
+  rotate: false
+  xy: 2241, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 15
+explosion
+  rotate: false
+  xy: 2401, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 16
+explosion
+  rotate: false
+  xy: 2561, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 17
+explosion
+  rotate: false
+  xy: 2721, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 18
+explosion
+  rotate: false
+  xy: 2881, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 19
+explosion
+  rotate: false
+  xy: 3041, 1
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: 20
