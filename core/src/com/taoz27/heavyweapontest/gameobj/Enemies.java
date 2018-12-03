@@ -5,10 +5,8 @@ import com.badlogic.gdx.utils.Array;
 
 import java.util.Iterator;
 
-public class Enemies extends AbsGameObj {
+public class Enemies{
     Array<Plane> planes;
-    Array<Bomb> bombs;
-    Tank target;
 
     int framesPerPlane=60*3;
     int curFrame=0;
@@ -16,31 +14,16 @@ public class Enemies extends AbsGameObj {
     public Enemies(){
         super();
         planes=new Array<Plane>();
-        bombs=new Array<Bomb>();
     }
 
-    public void setTarget(Tank target){
-        this.target =target;
-    }
-
-    @Override
     public void update() {
         for(Iterator<Plane> iter = planes.iterator(); iter.hasNext();){
             Plane jet=iter.next();
-            if(jet.dead){
+            if(jet.state== AbsGameObj.State.REMOVABLE){
                 iter.remove();
                 continue;
             }
             jet.update();
-        }
-
-        for(Iterator<Bomb> iter = bombs.iterator(); iter.hasNext();){
-            Bomb b=iter.next();
-            if (b.dead){
-                iter.remove();
-                continue;
-            }
-            b.update();
         }
 
         if (curFrame==0)emitPlane();
@@ -49,25 +32,18 @@ public class Enemies extends AbsGameObj {
     }
 
     private void emitPlane() {
-        Plane jet=Plane.crtSmallJet(this,target);
+        Plane jet=Plane.crtSmallJet();
         planes.add(jet);
-        Plane jet1=Plane.crtBlimp(this,target);
+        Plane jet1=Plane.crtBlimp();
         planes.add(jet1);
-        Plane jet2=Plane.crtBomber(this,target);
+        Plane jet2=Plane.crtBomber();
         planes.add(jet2);
-        Plane jet3=Plane.crtDeltaBomber(this,target);
+        Plane jet3=Plane.crtDeltaBomber();
         planes.add(jet3);
     }
 
-    @Override
-    void updateVelocity() {}
-
-    @Override
     public void render(SpriteBatch batch) {
         for(int i=0;i<planes.size;i++)
             planes.get(i).render(batch);
-
-        for(int i=0;i<bombs.size;i++)
-            bombs.get(i).render(batch);
     }
 }

@@ -13,12 +13,9 @@ public class Bomb extends AbsGameObj {
 
     float speed;
     boolean direction;
-
-    Plane parent;
     
-    public Bomb(Plane parent, float x, float y,boolean direction,float speed){
+    public Bomb(float x, float y,boolean direction,float speed){
         super();
-        this.parent=parent;
         this.direction=direction;
         
         bodyImgs= Assets.getInstance().bombImgs;
@@ -37,18 +34,12 @@ public class Bomb extends AbsGameObj {
         velocity.set(direction?speed:-speed,0);
     }
 
-    @Override
-    public void update() {
-        super.update();
-        hitTarget();
-    }
-
-    void hitTarget(){
-        if (dead)return;
-        if (body.y>parent.target.body.y+parent.target.body.height)return;
-        if (body.overlaps(parent.target.body)){
-            if(parent.target.onHit(Config.getBombDamage()))
-                dead=true;
+    void hitTarget(Tank target){
+        if (state!=State.ALIVE)return;
+        if (body.y>target.body.y+target.body.height)return;
+        if (body.overlaps(target.body)){
+            if(target.onHit(Config.getBombDamage()))
+                state=State.EXPLOSION;
         }
     }
 
@@ -58,7 +49,7 @@ public class Bomb extends AbsGameObj {
     }
 
     @Override
-    public void render(SpriteBatch batch) {
+    void renderOnAlive(SpriteBatch batch) {
         float angle=velocity.angle();
         if (direction) {
             if (MathUtils.isEqual(angle, 0, 3)) angle = 360;
@@ -71,5 +62,20 @@ public class Bomb extends AbsGameObj {
         curItem=(int)(angle*10/90);
 
         batch.draw(direction?bodyImgs.get(curItem):bodyImgsFlip.get(curItem),body.x,body.y,body.width,body.height);
+    }
+
+    @Override
+    void renderOnExplosion(SpriteBatch batch) {
+        state=State.REMOVABLE;
+    }
+
+    @Override
+    void renderOnDead(SpriteBatch batch) {
+        state=State.REMOVABLE;
+    }
+
+    @Override
+    void renderOnRemove(SpriteBatch batch) {
+
     }
 }

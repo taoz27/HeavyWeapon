@@ -11,13 +11,13 @@ import java.util.Iterator;
 public class Tank extends AbsGameObj {
     Array<TextureAtlas.AtlasRegion> bodyImgs;
     int curAtlasItem=0;
+    Array<Bullet> bullets;
     
     float speed;
     int framesPerBullet=10;
     int curFrames=0;
 
     Enemies target;
-    Array<Bullet> bullets;
 
     public Tank(){
         super();
@@ -34,24 +34,40 @@ public class Tank extends AbsGameObj {
         this.target =enemies;
     }
 
+    void detectHit(){
+        int size=target.planes.size;
+        for(int p=0;p<size;p++){
+            Plane plane=target.planes.get(p);
+            int bsize=plane.bombs.size;
+            for (int i=0;i<bsize;i++){
+                Bomb bomb=plane.bombs.get(i);
+                bomb.hitTarget(this);
+            }
+        }
+    }
+
     @Override
-    public void update() {
-        super.update();
+    void updateBeforeExplosion() {
         if (body.x<0)body.x=0;
         if (body.x+body.width>Config.getScreenWidth())body.x=Config.getScreenWidth()-body.width;
 
+        if(curFrames==0)emitBullet();
+        curFrames++;
+        curFrames=curFrames%framesPerBullet;
+
+        detectHit();
+    }
+
+    @Override
+    void updateBeforeRemove() {
         for(Iterator<Bullet> iter=bullets.iterator();iter.hasNext();){
             Bullet b=iter.next();
-            if (b.dead){
+            if (b.state==State.REMOVABLE){
                 iter.remove();
                 continue;
             }
             b.update();
         }
-
-        if(curFrames==0)emitBullet();
-        curFrames++;
-        curFrames=curFrames%framesPerBullet;
     }
 
     private void emitBullet() {
@@ -68,10 +84,31 @@ public class Tank extends AbsGameObj {
     void updateVelocity() {}
 
     @Override
-    public void render(SpriteBatch batch) {
+    void renderOnAlive(SpriteBatch batch) {
         batch.draw(bodyImgs.get(curAtlasItem),body.x,body.y,body.width,body.height);
         curAtlasItem++;
         curAtlasItem = curAtlasItem >= bodyImgs.size ? 0 : curAtlasItem;
+    }
+
+    @Override
+    void renderOnExplosion(SpriteBatch batch) {
+        state=State.ALIVE;
+        health=Config.getTankHealth();
+    }
+
+    @Override
+    void renderOnDead(SpriteBatch batch) {
+
+    }
+
+    @Override
+    void renderOnRemove(SpriteBatch batch) {
+
+    }
+
+    @Override
+    public void render(SpriteBatch batch) {
+        super.render(batch);
 
         for(int i=0;i<bullets.size;i++)
             bullets.get(i).render(batch);

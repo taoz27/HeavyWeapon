@@ -4,7 +4,6 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -31,7 +30,6 @@ public class MainGame extends ApplicationAdapter {
 		tank=new Tank();
 		enemies=new Enemies();
 		tank.setTarget(enemies);
-		enemies.setTarget(tank);
 		bg =new Backgrounds(1);
 
 		Assets.getInstance().bgMusic.play();
@@ -86,7 +84,6 @@ public class MainGame extends ApplicationAdapter {
         bg.render(batch);
 		tank.render(batch);
 		enemies.render(batch);
-		Explosion.renderAll(batch);
 
 
 		int fps= Gdx.graphics.getFramesPerSecond();

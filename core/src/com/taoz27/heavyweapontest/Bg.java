@@ -1,16 +1,16 @@
-package com.taoz27.heavyweapontest.gameobj;
+package com.taoz27.heavyweapontest;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
-import com.taoz27.heavyweapontest.Assets;
-import com.taoz27.heavyweapontest.Config;
 
 
-public class Bg extends AbsGameObj {
+public class Bg{
     TextureAtlas.AtlasRegion bodyImg;
 
-    float speed;
+    Rectangle body;
+    float speed,ratio;
     int num;//一张图片无法覆盖整个背景，需要多张图片
     
     public static Array<Bg> stage1(){
@@ -41,25 +41,21 @@ public class Bg extends AbsGameObj {
     
     private Bg(TextureAtlas.AtlasRegion region,float x, float y, float speedScale,float scale){
         bodyImg=region;
+        ratio=Config.getScreenRatio();
+        body=new Rectangle();
         body.width=bodyImg.originalWidth*ratio*scale;body.height=bodyImg.originalHeight*ratio*scale;
         num= (int)(Config.getScreenWidth()/body.width)+2;
 
         body.x=x;body.y=y;
 
         speed=Config.getBgSpeed()*speedScale;
-        velocity.x=-speed;
     }
 
-    @Override
     public void update() {
-        super.update();
+        body.x-=speed;
         if (body.x<-body.width)body.x+=body.width;
     }
 
-    @Override
-    void updateVelocity() {}
-
-    @Override
     public void render(SpriteBatch batch) {
         for(int i=0;i<num;i++){
             batch.draw(bodyImg,body.x+body.width*i,body.y,body.width,body.height);

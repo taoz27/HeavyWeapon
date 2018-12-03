@@ -30,29 +30,30 @@ public class Bullet extends AbsGameObj {
     }
 
     @Override
-    public void update() {
-        super.update();
+    void updateBeforeExplosion() {
         hitTarget();
     }
 
     void hitTarget(){
-        if (dead)return;
-        for(int i=0;i<parent.target.bombs.size;i++){
-            AbsGameObj obj=parent.target.bombs.get(i);
-            if (body.overlaps(obj.body)){
-                if(obj.onHit(Config.getBulletDamage())) {
-                    dead = true;
-                    return;
+        if (state!=State.ALIVE)return;
+        for(int i=0;i<parent.target.planes.size;i++){
+            Plane plane=parent.target.planes.get(i);
+            int size=plane.bombs.size;
+            for(int j=0;j<size;j++){
+                Bomb bomb=plane.bombs.get(j);
+                if (body.overlaps(bomb.body)){
+                    if(bomb.onHit(Config.getBulletDamage())) {
+                        state = State.EXPLOSION;
+                        return;
+                    }
                 }
             }
-        }
-        if (body.y+body.height<Config.getPlaneLowestHeight())return;
-        for(int i=0;i<parent.target.planes.size;i++){
-            AbsGameObj obj=parent.target.planes.get(i);
-            if (body.overlaps(obj.body)){
-                if(obj.onHit(Config.getBulletDamage())) {
+
+            if (body.y+body.height<Config.getPlaneLowestHeight())continue;
+            if (body.overlaps(plane.body)){
+                if(plane.onHit(Config.getBulletDamage())) {
                     Assets.getInstance().bullethit.play();
-                    dead = true;
+                    state = State.EXPLOSION;
                     return;
                 }
             }
@@ -65,7 +66,7 @@ public class Bullet extends AbsGameObj {
     }
 
     @Override
-    public void render(SpriteBatch batch) {
+    void renderOnAlive(SpriteBatch batch) {
         float angle=velocity.angle();
         if(MathUtils.isEqual(angle,0,3)||MathUtils.isEqual(angle,360,3))
             curItem=20;
@@ -79,5 +80,20 @@ public class Bullet extends AbsGameObj {
         }
 
         batch.draw(bodyImgs.get(curItem),body.x,body.y,body.width,body.height);
+    }
+
+    @Override
+    void renderOnExplosion(SpriteBatch batch) {
+        state=State.REMOVABLE;
+    }
+
+    @Override
+    void renderOnDead(SpriteBatch batch) {
+        state=State.REMOVABLE;
+    }
+
+    @Override
+    void renderOnRemove(SpriteBatch batch) {
+
     }
 }
