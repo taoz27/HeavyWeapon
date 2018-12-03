@@ -6,7 +6,7 @@ filter: Nearest,Nearest
 repeat: none
 bigbomber
   rotate: false
-  xy: 303, 71
+  xy: 505, 71
   size: 160, 50
   orig: 160, 50
   offset: 0, 0
@@ -20,14 +20,14 @@ blimp
   index: -1
 bomber
   rotate: false
-  xy: 465, 77
+  xy: 829, 77
   size: 120, 44
   orig: 120, 44
   offset: 0, 0
   index: -1
 deflector
   rotate: false
-  xy: 113, 4
+  xy: 505, 36
   size: 100, 33
   orig: 100, 33
   offset: 0, 0
@@ -41,29 +41,36 @@ deltabomber
   index: -1
 deltajet
   rotate: false
-  xy: 709, 87
+  xy: 113, 3
   size: 100, 34
   orig: 100, 34
   offset: 0, 0
   index: -1
+fatbomber
+  rotate: false
+  xy: 303, 44
+  size: 200, 77
+  orig: 200, 77
+  offset: 0, 0
+  index: -1
 jetfighter
   rotate: false
-  xy: 811, 93
+  xy: 607, 41
   size: 80, 28
   orig: 80, 28
   offset: 0, 0
   index: -1
-pupcopter
-  rotate: false
-  xy: 587, 77
-  size: 120, 44
-  orig: 120, 44
-  offset: 0, 0
-  index: -1
 smalljet
   rotate: false
-  xy: 303, 39
+  xy: 215, 7
   size: 80, 30
   orig: 80, 30
+  offset: 0, 0
+  index: -1
+superbomber
+  rotate: false
+  xy: 667, 78
+  size: 160, 43
+  orig: 160, 43
   offset: 0, 0
   index: -1

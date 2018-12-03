@@ -15,7 +15,7 @@ public class DesktopLauncher {
 			settings.maxHeight=1024;
 			settings.debug=drawDebugOutline;
 			settings.duplicatePadding=true;
-			TexturePacker.process(settings,"tank_raw_img","../assets/images","bg1_images");
+			TexturePacker.process(settings,"tank_raw_img","../assets/images","plane_images");
 		}
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width=950;

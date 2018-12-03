@@ -14,11 +14,11 @@ public class Bomb extends AbsGameObj {
     float speed;
     boolean direction;
     
-    public Bomb(float x, float y,boolean direction,float speed){
+    public Bomb(float x, float y,boolean direction,float speed,int bombType){
         super();
         this.direction=direction;
         
-        bodyImgs= Assets.getInstance().bombImgs;
+        bodyImgs= Assets.getInstance().bombImgs.get(bombType);
         bodyImgsFlip=new Array<TextureAtlas.AtlasRegion>();
         for(int i=0;i<bodyImgs.size;i++){
             TextureAtlas.AtlasRegion temp=new TextureAtlas.AtlasRegion(bodyImgs.get(i));
@@ -77,5 +77,21 @@ public class Bomb extends AbsGameObj {
     @Override
     void renderOnRemove(SpriteBatch batch) {
 
+    }
+}
+
+enum  BombImage {
+    dumbbomb(0),
+    ironbomb(1),
+    fragbomb(2),
+    fatboy(3);
+
+    int value;
+    BombImage(int value){
+        this.value=value;
+    }
+
+    public int getValue(){
+        return value;
     }
 }

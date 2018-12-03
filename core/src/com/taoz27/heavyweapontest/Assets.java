@@ -3,19 +3,29 @@ package com.taoz27.heavyweapontest;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 public class Assets implements Disposable {
     private static final Assets instance=new Assets();
 
-    TextureAtlas tankAtlas,planeAtlas,bulletAtlas,bombAtlas;
+    TextureAtlas tankAtlas;
     public Array<TextureAtlas.AtlasRegion> tankImgs;
-    public Array<TextureAtlas.AtlasRegion> planeImgs;
+    public Texture tankShadow;
+
+    TextureAtlas bulletAtlas;
     public Array<TextureAtlas.AtlasRegion> bulletImgs;
-    public Array<TextureAtlas.AtlasRegion> bombImgs;
+
+    TextureAtlas planeAtlas;
+    public Array<TextureAtlas.AtlasRegion> planeImgs;
+    public Texture planeSmoke;
+    
+    TextureAtlas dumbbombAtlas,ironbombAtlas,fragbombAtlas,fatboyAtlas;
+    public Array<Array<TextureAtlas.AtlasRegion>> bombImgs;
 
     TextureAtlas bg1Atlas;
     public Array<TextureAtlas.AtlasRegion> bg1Imgs;
@@ -35,14 +45,26 @@ public class Assets implements Disposable {
     }
     
     public Assets(){
-        tankAtlas = new TextureAtlas(Gdx.files.internal("images/tank_images.atlas"));
+        tankAtlas = new TextureAtlas(Gdx.files.internal("images/tank/tank_images.atlas"));
         tankImgs=tankAtlas.getRegions();
-        planeAtlas = new TextureAtlas(Gdx.files.internal("images/plane_images.atlas"));
+        tankShadow=new Texture(Gdx.files.internal("images/tank/tankshadow.png"));
+        
+        planeAtlas = new TextureAtlas(Gdx.files.internal("images/plane/plane_images.atlas"));
         planeImgs=planeAtlas.getRegions();
+        planeSmoke=new Texture(Gdx.files.internal("images/plane/smoke.png"));
+        
         bulletAtlas=new TextureAtlas(Gdx.files.internal("images/bullet_images.atlas"));
         bulletImgs=bulletAtlas.getRegions();
-        bombAtlas=new TextureAtlas(Gdx.files.internal("images/bomb_images.atlas"));
-        bombImgs=bombAtlas.getRegions();
+        
+        bombImgs=new Array<Array<TextureAtlas.AtlasRegion>>(5);
+        dumbbombAtlas=new TextureAtlas(Gdx.files.internal("images/bombs/dumbbomb.atlas"));
+        bombImgs.add(dumbbombAtlas.getRegions());
+        ironbombAtlas=new TextureAtlas(Gdx.files.internal("images/bombs/ironbomb.atlas"));
+        bombImgs.add(ironbombAtlas.getRegions());
+        fragbombAtlas=new TextureAtlas(Gdx.files.internal("images/bombs/fragbomb.atlas"));
+        bombImgs.add(fragbombAtlas.getRegions());
+        fatboyAtlas=new TextureAtlas(Gdx.files.internal("images/bombs/fatboy.atlas"));
+        bombImgs.add(fatboyAtlas.getRegions());
 
         bg1Atlas=new TextureAtlas(Gdx.files.internal("images/bg1_images.atlas"));
         bg1Imgs=bg1Atlas.getRegions();
@@ -64,9 +86,17 @@ public class Assets implements Disposable {
     @Override
     public void dispose() {
         tankAtlas.dispose();
+        tankShadow.dispose();
+
         planeAtlas.dispose();
+        planeSmoke.dispose();
+
         bulletAtlas.dispose();
-        bombAtlas.dispose();
+
+        dumbbombAtlas.dispose();
+        ironbombAtlas.dispose();
+        fragbombAtlas.dispose();
+        fatboyAtlas.dispose();
 
         bg1Atlas.dispose();
 

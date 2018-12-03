@@ -1,5 +1,6 @@
 package com.taoz27.heavyweapontest.gameobj;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
@@ -11,6 +12,8 @@ import java.util.Iterator;
 public class Tank extends AbsGameObj {
     Array<TextureAtlas.AtlasRegion> bodyImgs;
     int curAtlasItem=0;
+    Texture shadow;
+    float shadowWidth,shadowHeight;
     Array<Bullet> bullets;
     
     float speed;
@@ -23,6 +26,8 @@ public class Tank extends AbsGameObj {
         super();
         bodyImgs= Assets.getInstance().tankImgs;
         getInfoByAtlas(bodyImgs.get(0));
+        shadow=Assets.getInstance().tankShadow;
+        shadowWidth=body.width*1.5f;shadowHeight=shadowWidth/4;
         body.x=(Config.getScreenWidth()-body.width)/2;body.y=Config.getGroundHeight();
         speed=Config.getTankSpeed();
         health=Config.getTankHealth();
@@ -81,10 +86,9 @@ public class Tank extends AbsGameObj {
     }
 
     @Override
-    void updateVelocity() {}
-
-    @Override
     void renderOnAlive(SpriteBatch batch) {
+        batch.draw(shadow,body.x-(shadowWidth-body.width)/2,body.y-shadowHeight/2,shadowWidth,shadowHeight);
+
         batch.draw(bodyImgs.get(curAtlasItem),body.x,body.y,body.width,body.height);
         curAtlasItem++;
         curAtlasItem = curAtlasItem >= bodyImgs.size ? 0 : curAtlasItem;

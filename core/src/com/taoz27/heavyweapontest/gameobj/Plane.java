@@ -1,12 +1,12 @@
 package com.taoz27.heavyweapontest.gameobj;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.taoz27.heavyweapontest.Assets;
 import com.taoz27.heavyweapontest.Config;
-import com.taoz27.heavyweapontest.PlaneImage;
 
 import java.util.Iterator;
 
@@ -25,21 +25,36 @@ public class Plane extends AbsGameObj {
 
     boolean direction;//方向：true为向右
 
-    public static Plane crtSmallJet(){
-        return new Plane(PlaneImage.smalljet.getValue(),Config.getSmallJetBombSpeed(),Config.getSmallJetHealth());
+    public static Plane crtBigBomber(){
+        return new Plane(PlaneType.bigbomber.getValue(),Config.getSmallJetBombSpeed(),Config.getSmallJetHealth(),1,1);
     }
     public static Plane crtBlimp(){
-        return new Plane(PlaneImage.blimp.getValue(),Config.getBlimpBombSpeed(),Config.getBlimpHealth(),5,1);
+        return new Plane(PlaneType.blimp.getValue(),Config.getBlimpBombSpeed(),Config.getBlimpHealth(),5,0);
     }
     public static Plane crtBomber(){
-        return new Plane(PlaneImage.bomber.getValue(),Config.getBomberHealth(),Config.getSmallJetHealth(),3,1);
+        return new Plane(PlaneType.bomber.getValue(),Config.getBomberHealth(),Config.getSmallJetHealth(),3,0);
+    }
+    public static Plane crtDeflector(){
+        return new Plane(PlaneType.deflector.getValue(),Config.getSmallJetBombSpeed(),Config.getSmallJetHealth());
     }
     public static Plane crtDeltaBomber(){
-        return new Plane(PlaneImage.deltabomber.getValue(),Config.getDeltaBomberBombSpeed(),Config.getDeltaBomberHealth());
+        return new Plane(PlaneType.deltabomber.getValue(),Config.getDeltaBomberBombSpeed(),Config.getDeltaBomberHealth(),1,2);
+    }
+    public static Plane crtDeltaJet(){
+        return new Plane(PlaneType.deltajet.getValue(),Config.getSmallJetBombSpeed(),Config.getSmallJetHealth());
+    }
+    public static Plane crtFatBomber(){
+        return new Plane(PlaneType.fatbomber.getValue(),Config.getSmallJetBombSpeed(),Config.getSmallJetHealth(),1,3);
+    }
+    public static Plane crtSmallJet(){
+        return new Plane(PlaneType.smalljet.getValue(),Config.getSmallJetBombSpeed(),Config.getSmallJetHealth());
+    }
+    public static Plane crtSuperBomber(){
+        return new Plane(PlaneType.superbomber.getValue(),Config.getSmallJetBombSpeed(),Config.getSmallJetHealth(),10,1);
     }
 
     private Plane(int plane, int framesPerBomb, int health){
-        this( plane, framesPerBomb,  health,1,1);
+        this( plane, framesPerBomb,  health,1,0);
     }
 
     private Plane(int plane,int framesPerBomb, int health,int bombsPerTime, int bombType){
@@ -101,7 +116,7 @@ public class Plane extends AbsGameObj {
 
     private void emitBomb() {
         Assets.getInstance().bombfall.play();
-        Bomb bomb=new Bomb(body.x+body.width/2,body.y,direction,speed);
+        Bomb bomb=new Bomb(body.x+body.width/2,body.y,direction,speed,bombType);
         bombs.add(bomb);
     }
 
@@ -115,6 +130,7 @@ public class Plane extends AbsGameObj {
 
     @Override
     void renderOnExplosion(SpriteBatch batch) {
+        //if (explosion==null)explosion=new Explosion(body,velocity.x);
         if (explosion.end) state=State.DEAD;
         else explosion.render(batch);
     }
@@ -135,5 +151,27 @@ public class Plane extends AbsGameObj {
 
         for(int i=0;i<bombs.size;i++)
             bombs.get(i).render(batch);
+    }
+}
+
+enum PlaneType {
+    bigbomber(0),
+    blimp(1),
+    bomber(2),
+    deflector(3),
+    deltabomber(4),
+    deltajet(5),
+    fatbomber(6),
+    jetfighter(7),
+    smalljet(8),
+    superbomber(9);
+
+    int value;
+    PlaneType(int value){
+        this.value=value;
+    }
+
+    public int getValue(){
+        return value;
     }
 }

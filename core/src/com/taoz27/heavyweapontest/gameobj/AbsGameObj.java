@@ -72,7 +72,7 @@ public abstract class AbsGameObj {
     }
 
     boolean isOut(){
-        if (body.x>Config.getScreenWidth()||body.x<-body.width||body.y>Config.getScreenHeight()||body.y<Config.getGroundHeight())
+        if (body.x>Config.getScreenWidth()||body.x<-body.width||body.y>Config.getScreenHeight()||body.y+body.height/2<Config.getGroundHeight())
             return true;
         return false;
     }
@@ -85,5 +85,5 @@ public abstract class AbsGameObj {
     abstract void renderOnExplosion(SpriteBatch batch);
     abstract void renderOnDead(SpriteBatch batch);
     abstract void renderOnRemove(SpriteBatch batch);
-    abstract void updateVelocity();
+    void updateVelocity(){}
 }

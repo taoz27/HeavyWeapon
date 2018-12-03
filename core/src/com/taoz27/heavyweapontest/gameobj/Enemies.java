@@ -40,6 +40,10 @@ public class Enemies{
         planes.add(jet2);
         Plane jet3=Plane.crtDeltaBomber();
         planes.add(jet3);
+        Plane jet4=Plane.crtSuperBomber();
+        planes.add(jet4);
+        Plane jet5=Plane.crtFatBomber();
+        planes.add(jet5);
     }
 
     public void render(SpriteBatch batch) {
