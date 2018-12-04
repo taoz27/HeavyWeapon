@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.taoz27.heavyweapontest.Assets;
 import com.taoz27.heavyweapontest.Config;
@@ -40,9 +41,12 @@ public class Explosion {
         end=false;
     }
 
+    Vector2 center=new Vector2();
     public void render(SpriteBatch batch) {
         if (end)return;
+        smokeBody.getCenter(center);
         smokeBody.width++;smokeBody.height++;
+        smokeBody.setCenter(center);
         batch.draw(smoke,smokeBody.x,smokeBody.y,smokeBody.width,smokeBody.height);
 
         body.x+=speed;
